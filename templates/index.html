@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/bootstrap.css')}}"
+    />
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer loan Approval prediction</title>
+    <style>
+      .container {
+        min-height: 100dvh;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-9 bg-light p-4">
+          <h1 class="text-center bg-info py-3">loan Approval</h1>
+          {% from "_formhelpers.html" import render_field %}
+          <form method="post" id="form">
+            <dl>
+              {{ render_field(form.current_loan_amount, class='form-control') }}
+              {{ render_field(form.term,class='form-control') }} {{
+              render_field(form.annual_income, class='form-control')}} {{
+              render_field(form.years_in_current_job,class='form-control') }}
+              {{render_field(form.current_credit_balance,class='form-control')}}
+              {{render_field(form.credit_score, class='form-control')}}
+              {{render_field(form.number_of_open_accounts,class='form-control')
+              }} {{render_field(form.home_ownership,class='form-control') }}
+            </dl>
+            <p>
+              <button class="btn btn-primary" type="submit" >View Qualification</button>
+              <button id="clear"  class="btn btn-primary" type="button">clear</button>
+            </p>
+          </form>
+        </div>
+        <div class="col-3 {{result_bg}} p-4">
+          <h1 class="text-center bg-info py-3">Results</h1>
+          {% if amount%}
+          <div class="card my-4 p-3 ">
+            <h3 class="card-header">You Qualify for: </h3>
+            <h3 class="text-danger">Ksh. {{amount}}</h3>
+            <div class="card-footer">
+              <a class="btn btn-primary" href="#">Apply now</a>
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+      </div>
+    </div> 
+    <script>
+  const btn = document.getElementById("clear")
+  var inputs = document.querySelectorAll('input');
+  btn.addEventListener('click',()=>{
+    inputs.forEach(input => {
+      input.value=""
+    });
+})
+    </script>    
+  </body>
+</html>

@@ -25,6 +25,7 @@ app = flask.Flask(__name__, static_folder='statics')
 @app.route('/', methods=['GET', 'POST'])
 def index():
     is_qualified = None
+    pred = [0]
     form = CustomerDetails(request.form)
     if request.method == 'POST' and form.validate():
 # ['Current Loan Amount', 'Term', 'Annual Income', 'Years in current job','Current Credit Balance', 'Credit Score', 'Number of Open Accounts','Home Ownership']
